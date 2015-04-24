@@ -1,0 +1,78 @@
+@font-face {
+    font-family: openSans;
+    src: url(opensans-regular.woff);
+}
+
+body {
+	background-color: #fff;
+	color: #191917;
+	font-family: openSans;
+	font-size: 14px;
+	margin: 0;
+}
+
+a {
+	color: #191917;
+}
+
+a:hover {
+	opacity: .7;
+}
+
+div {
+	background-color: #fff;
+}
+
+/*******************************************************************/
+
+.wrapper {
+	display: inline-block;
+	margin: 0 auto;
+	padding: 5px 0 20px;
+	text-align: center;
+	width: 100%;
+}
+
+.wrapper h1 {
+	font-size: 32px;
+	margin: 10px auto;
+}
+
+.wrapper label {
+	display: block;
+	font-weight: 600;
+	margin: 0 auto;
+	text-align: left;
+	width: 300px;
+}
+
+.wrapper input {
+	display: block;
+	margin: 0 auto 10px;
+	width: 300px;
+}
+
+.wrapper input[type="submit"] {
+	width: auto;
+}
+
+.wrapper input[type="radio"] {
+	display: inline-block;
+	margin: 5px 5px 0 0;
+	width: auto;
+}
+
+.wrapper .line {
+	display: block;
+	margin: 0 auto 10px;
+	text-align: left;
+	vertical-align: top;
+	width: 300px;
+}
+
+.wrapper .line label {
+	display: inline-block;
+	padding: 0 15px 0 0;
+	vertical-align: baseline;
+	width: auto;
+}
