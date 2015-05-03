@@ -76,3 +76,36 @@ div {
 	vertical-align: baseline;
 	width: auto;
 }
+
+.wrapper a {
+	color: #191917;
+	display: block;
+	margin: 0 0 20px;
+	text-decoration: none;
+}
+
+.wrapper a:hover {
+	opacity: .7;
+}
+
+.wrapper table {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	display: inline-block;
+}
+
+.wrapper table th {
+	font-weight: 600;
+}
+
+.wrapper table tr {
+	font-weight: normal;
+}
+
+.wrapper table tr:nth-child(even) {
+	background-color: #f1f1f1;
+}
+
+.wrapper table tr:hover {
+	background-color: #cfc;
+}
