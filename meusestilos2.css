@@ -109,3 +109,7 @@ div {
 .wrapper table tr:hover {
 	background-color: #cfc;
 }
+
+.wrapper table tr a {
+	margin: 0;
+}
