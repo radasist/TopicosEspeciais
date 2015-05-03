@@ -26,9 +26,9 @@ error_reporting(0);
             <ul>
                 <li><a href="abastecer.php" target="principal-iframe">Abastecimento</a></li>
             </ul>
-            <h3>Cadastros</h3>
+            <h3>Cadastros/Consultas</h3>
             <ul>
-                <li><a href="cadastroCliente.php" target="principal-iframe">Clientes</a></li>
+                <li><a href="consultaCliente.php" target="principal-iframe">Clientes</a></li>
                 <li><a href="cadastroEstabelecimento.php" target="principal-iframe">Estabelecimentos</a></li>
                 <li><a href="cadastroGrupo.php" target="principal-iframe">Grupos de estabelecimentos</a></li>
                 <li><a href="cadastroProduto.php" target="principal-iframe">Produtos</a></li>
@@ -39,7 +39,7 @@ error_reporting(0);
             </ul>
         </div>
         <div class="principal-container">
-            <iframe src="index.php" name="principal-iframe"></iframe>
+            <iframe src="ola.php" name="principal-iframe"></iframe>
         </div>
     </div>
 </body>
