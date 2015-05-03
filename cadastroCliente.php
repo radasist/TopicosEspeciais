@@ -1,8 +1,8 @@
 <?php
 
-//error_reporting(0);
+error_reporting(0);
 
-$sqlConn =  new mysqli('localhost', 'root', 'rafael', 'topicos_especiais');
+require("conexao.php");
 
 if ($_REQUEST["id"]) {
     $id = $_REQUEST["id"];
