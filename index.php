@@ -2,12 +2,24 @@
 
 error_reporting(0);
 
-// if ($_POST['username'] == "admin" && $_POST['password'] == "admin") {
-//     header("location:cadastro.php");
-//     die();
-// } else if (trim($_POST['username']) && trim($_POST['password'])) {
-//     echo "usuário e/ou senha incorretos<br>";
-// }
+require("conexao.php");
+
+$showError = "";
+$usuario = "";
+
+if ($_POST["enviado"]) {
+    $usuario = $_POST["usuario"];
+
+    $data = $sqlConn->query("SELECT 1 FROM usuarios WHERE usuario = '".$_POST["usuario"]."' AND senha = '".$_POST["senha"]."'");
+    $resultArray = $data->fetch_all(MYSQLI_ASSOC);
+
+    if ($resultArray[0][1]) {
+        header('Location: principal.php');
+        die();
+    } else {
+        $showError = "show-error";
+    }
+}
 
 ?>
 
@@ -21,25 +33,15 @@ error_reporting(0);
 <link rel="stylesheet" type="text/css" href="meusestilos.css">
 
 <body>
-    <div class="login-container show-error">
+    <div class="login-container <?=$showError?>">
         <h1>Login</h1>
         <form method="post" action="index.php">
             <input type="hidden" name="enviado" value="1">
-            <input type="text" name="username" placeholder="usuário" required autofocus>
-            <input type="password" name="password" placeholder="senha" required>
+            <input type="text" name="usuario" placeholder="usuário" value="<?=$usuario?>" required autofocus>
+            <input type="password" name="senha" placeholder="senha" required>
             <input type="submit" value="Login">
         </form>
-        <div class="error">Erro!
-            <?php
-                // if (!$_POST['username'] && !$_POST['password'] && $_POST['enviado']) {
-                //     echo "Usuário e senha não preenchidos.";
-                // } else if (!$_POST['username'] && $_POST['enviado']) {
-                //     echo "Usuário não preenchido.";
-                // } else if (!$_POST['password'] && $_POST['enviado']) {
-                //     echo "Senha não preenchida.";
-                // }
-            ?>
-        </div>
+        <div class="error">Usuário e/ou senha incorretos!</div>
     </div>
 </body>
 
