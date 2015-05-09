@@ -1,0 +1,59 @@
+@font-face {
+    font-family: openSans;
+    src: url(opensans-regular.woff);
+}
+
+body {	
+	color: #191917;
+	font-family: openSans;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #191917;
+}
+
+a:hover {
+	opacity: .7;
+}
+
+div {
+	background-color: #fff;
+}
+
+p {
+	font-size: 22px;
+	margin: 10px;
+}
+
+p strong {
+	font-weight: bold;
+}
+
+h1 {
+	display: block;
+	font-size: 36px;
+	margin: 10px;
+	text-align: center;
+}
+
+.content-login {
+	margin: 0 auto;
+	max-width: 600px;
+}
+
+.content-login p {
+	text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+	h1 {
+		font-size: 30px;
+	}
+
+	p {
+		font-size: 16px;
+	}
+}
