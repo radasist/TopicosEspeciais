@@ -36,6 +36,13 @@ if ($_POST["enviado"]) {
     <div class="content-login">
         <h1>Sistema de pontuação</h1>
         <p><strong>Indique seus amigos</strong>, e <strong>ganhe bônus</strong> com o abastecimento do carro deles! (depois a gente muda)</p>
+
+        <form method="post" action="index.php">
+            <input type="hidden" name="enviado" value="1">
+            <input type="text" name="usuario" placeholder="usuário" value="<?=$usuario?>" required autofocus>
+            <input type="password" name="senha" placeholder="senha" required>
+            <input type="submit" value="Login">
+        </form>
     </div>
     <!-- <div class="login-container <?=$showError?>">
         <h1>Login</h1>
