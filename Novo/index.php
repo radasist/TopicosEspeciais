@@ -33,7 +33,11 @@ if ($_POST["enviado"]) {
 <link rel="stylesheet" type="text/css" href="meusestilos.css">
 
 <body>
-    <div class="login-container <?=$showError?>">
+    <div class="content-login">
+        <h1>Sistema de pontuação</h1>
+        <p><strong>Indique seus amigos</strong>, e <strong>ganhe bônus</strong> com o abastecimento do carro deles! (depois a gente muda)</p>
+    </div>
+    <!-- <div class="login-container <?=$showError?>">
         <h1>Login</h1>
         <form method="post" action="index.php">
             <input type="hidden" name="enviado" value="1">
@@ -42,7 +46,7 @@ if ($_POST["enviado"]) {
             <input type="submit" value="Login">
         </form>
         <div class="error">Usuário e/ou senha incorretos!</div>
-    </div>
+    </div> -->
 </body>
 
 </html>
