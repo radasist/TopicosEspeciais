@@ -27,22 +27,30 @@ if ($_POST["enviado"]) {
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimun-scale=1, maximum-scale=1">
     <title>Login</title>
 </head>
 
 <link rel="stylesheet" type="text/css" href="meusestilos.css">
 
 <body>
-    <div class="content-login">
+    <div class="content">
         <h1>Sistema de pontuação</h1>
         <p><strong>Indique seus amigos</strong>, e <strong>ganhe bônus</strong> com o abastecimento do carro deles! (depois a gente muda)</p>
+    </div>
 
+    <div class="content-login">
+        <h3>Login</h3>
         <form method="post" action="index.php">
             <input type="hidden" name="enviado" value="1">
             <input type="text" name="usuario" placeholder="usuário" value="<?=$usuario?>" required autofocus>
             <input type="password" name="senha" placeholder="senha" required>
             <input type="submit" value="Login">
         </form>
+    </div>
+    
+    <div class="content">
+        <p><a href="cadastrase.php">Faça já seu cadastro!</a></p>
     </div>
     <!-- <div class="login-container <?=$showError?>">
         <h1>Login</h1>
