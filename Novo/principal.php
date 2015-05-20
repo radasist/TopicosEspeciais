@@ -35,6 +35,7 @@ if ($_POST["enviado"]) {
 
 <body>
     <div class="bar-top">
+        <div class="menu-button"><div class="menu-button-inner"></div></div>
         <div class="logo"><img src="LancerCB0.png"></div>
         <div class="text">
             <h1>Sistema Seus Pontos</h1>
