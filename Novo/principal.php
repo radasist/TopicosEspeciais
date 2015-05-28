@@ -27,13 +27,15 @@ if ($_POST["enviado"]) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimun-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <title>Login</title>
 </head>
 
 <link rel="stylesheet" type="text/css" href="meusestilos.css">
 
-<body>
+<script src="jquery-2.1.4.js"></script>
+
+<body class="main-page">
     <div class="bar-top">
         <div class="menu-button"><div class="menu-button-inner"></div></div>
         <div class="logo"><img src="LancerCB0.png"></div>
@@ -41,6 +43,30 @@ if ($_POST["enviado"]) {
             <h1>Sistema Seus Pontos</h1>
             <h2>Para você ir mais longe</h2>
         </div>
+    </div>
+
+    <div class="menu-container">
+        <h1>Menu</h1>
+        <h3>Consultas</h3>
+        <ul>
+            <li><a href="consultaSaldo.php" target="principal-iframe">Saldo</a></li>
+            <li><a href="consultaMovimentos.php" target="principal-iframe">Movimentos</a></li>
+        </ul>
+        <h3>Registro</h3>
+        <ul>
+            <li><a href="abastecer.php" target="principal-iframe">Abastecimento</a></li>
+        </ul>
+        <h3>Cadastros/Consultas</h3>
+        <ul>
+            <li><a href="consultaCliente.php" target="principal-iframe">Clientes</a></li>
+            <li><a href="cadastroEstabelecimento.php" target="principal-iframe">Estabelecimentos</a></li>
+            <li><a href="cadastroGrupo.php" target="principal-iframe">Grupos de estabelecimentos</a></li>
+            <li><a href="cadastroProduto.php" target="principal-iframe">Produtos</a></li>
+        </ul>
+        <h3>Sistema</h3>
+        <ul>
+            <li><a href="configuracoes.php" target="principal-iframe">Configurações</a></li>
+        </ul>
     </div>
 
     <div class="content">
@@ -72,5 +98,7 @@ if ($_POST["enviado"]) {
         <div class="error">Usuário e/ou senha incorretos!</div>
     </div> -->
 </body>
+
+<script src="meusscripts.js"></script>
 
 </html>
