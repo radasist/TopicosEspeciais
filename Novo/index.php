@@ -42,7 +42,7 @@ if ($_POST["enviado"]) {
         </div>
     </div>
 
-    <div class="content">
+    <div class="content-index">
         <h1>Sistema de pontuação</h1>
         <p><strong>Indique seus amigos</strong>, e <strong>ganhe bônus</strong> com o abastecimento do carro deles! (depois a gente muda)</p>
     </div>
@@ -57,7 +57,7 @@ if ($_POST["enviado"]) {
         </form>
     </div>
     
-    <div class="content">
+    <div class="content-index">
         <p><a href="cadastrase.php">Faça já seu cadastro!</a></p>
     </div>
     <!-- <div class="login-container <?=$showError?>">

@@ -49,43 +49,28 @@ if ($_POST["enviado"]) {
         <h1>Menu</h1>
         <h3>Consultas</h3>
         <ul>
-            <li><a href="consultaSaldo.php" target="principal-iframe">Saldo</a></li>
-            <li><a href="consultaMovimentos.php" target="principal-iframe">Movimentos</a></li>
+            <li>Saldo</li>
+            <li>Movimentos</li>
         </ul>
         <h3>Registro</h3>
         <ul>
-            <li><a href="abastecer.php" target="principal-iframe">Abastecimento</a></li>
+            <li>Abastecimento</li>
         </ul>
         <h3>Cadastros/Consultas</h3>
         <ul>
-            <li><a href="consultaCliente.php" target="principal-iframe">Clientes</a></li>
-            <li><a href="cadastroEstabelecimento.php" target="principal-iframe">Estabelecimentos</a></li>
-            <li><a href="cadastroGrupo.php" target="principal-iframe">Grupos de estabelecimentos</a></li>
-            <li><a href="cadastroProduto.php" target="principal-iframe">Produtos</a></li>
+            <li page="consultaCliente">Clientes</li>
+            <li>Estabelecimentos</li>
+            <li>Grupos de estabelecimentos</li>
+            <li>Produtos</li>
         </ul>
         <h3>Sistema</h3>
         <ul>
-            <li><a href="configuracoes.php" target="principal-iframe">Configurações</a></li>
+            <li>Configurações</li>
         </ul>
     </div>
 
-    <div class="content">
-        <h1>Sistema de pontuação</h1>
-        <p><strong>Indique seus amigos</strong>, e <strong>ganhe bônus</strong> com o abastecimento do carro deles! (depois a gente muda)</p>
-    </div>
-
-    <div class="content-login">
-        <h3>Login</h3>
-        <form method="post" action="index.php">
-            <input type="hidden" name="enviado" value="1">
-            <input type="text" name="usuario" placeholder="usuário" value="<?=$usuario?>" required autofocus>
-            <input type="password" name="senha" placeholder="senha" required>
-            <input type="submit" value="Login">
-        </form>
-    </div>
-    
-    <div class="content">
-        <p><a href="cadastrase.php">Faça já seu cadastro!</a></p>
+    <div class="principal-container">
+        
     </div>
     <!-- <div class="login-container <?=$showError?>">
         <h1>Login</h1>
