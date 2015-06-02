@@ -4,6 +4,13 @@ error_reporting(0);
 
 require("conexao.php");
 
+
+if ($_POST["id"]) {
+    $result = $sqlConn->query("DELETE FROM usuarios WHERE id = '".$_POST["id"]."'");
+} else {
+    $result = -1;
+}
+
 $data = $sqlConn->query("SELECT id, nome, DATE_FORMAT(data_nasc,'%d/%m/%Y') as data_nasc, sexo, usuario FROM usuarios");
 $resultArray = $data->fetch_all(MYSQLI_ASSOC);
 
@@ -12,7 +19,7 @@ $usuariosLength = count($resultArray);
 ?>
 
 <h1>Consulta Cliente</h1>
-<a href="#" page="cadastroCliente">Cadastrar Cliente</a>
+<a href="#" page="cadastroCliente" class="link">Cadastrar Cliente</a>
 <table>
     <tr>
         <th>Nome</th>
@@ -35,8 +42,8 @@ $usuariosLength = count($resultArray);
             "<td>".$resultArray[$i]["data_nasc"]."</td>".
             "<td>".$sexo."</td>".
             "<td>".$resultArray[$i]["usuario"]."</td>".
-            "<td><a href=\"#\" page=\"cadastroCliente\" data=\"".$resultArray[$i]["id"]."\">Alterar</a></td>".
-            "<td><a href=\"#\">Excluir</a></td>".
+            "<td><a href=\"#\" page=\"cadastroCliente\" data=\"".$resultArray[$i]["id"]."\" class=\"link\">Alterar</a></td>".
+            "<td><a href=\"#\" page=\"consultaCliente\" data=\"".$resultArray[$i]["id"]."\" msg=\"Tem certeza que deseja excluir '".$resultArray[$i]["nome"]."'?\"  class=\"confirm\">Excluir</a></td>".
         "</tr>";
     }
 
@@ -44,24 +51,9 @@ $usuariosLength = count($resultArray);
 </table>
 
 <script>
-    // document.querySelector('form').addEventListener('submit', function(e) {
-    //     var pass = document.querySelector('#senha').value.trim(),
-    //         pass2 = document.querySelector('#senha2').value.trim();
-
-    //     if (pass != pass2) {
-    //         e.preventDefault();
-    //         alert("As senhas são diferentes!");
-    //         document.querySelector('#senha').focus();
-    //     }
-    // }, false);
-
-    // if (<?=(string)$result?> == 1) {
-    //     if (<?=(string)$id?> == 0) {
-    //         alert("Cadastro efetuado com sucesso!")
-    //     } else {
-    //         alert("Alteração salva com sucesso!")
-    //     }
-    // } else if (<?=(string)$result?> == 0) {
-    //     alert("Ocorreu um erro, entre em contato com o administrador!");
-    // }
+    if (<?=(string)$result?> == 1) {
+        alert("Cadastro excluído com sucesso!")
+    } else if (<?=(string)$result?> == 0) {
+        alert("Ocorreu um erro ao exluir o contato, entre em contato com o administrador!")
+    }
 </script>
