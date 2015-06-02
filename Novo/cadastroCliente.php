@@ -4,8 +4,8 @@ error_reporting(0);
 
 require("conexao.php");
 
-if ($_REQUEST["id"]) {
-    $id = $_REQUEST["id"];
+if ($_POST["id"]) {
+    $id = $_POST["id"];
     $label = "Alteração";
 } else {
     $label = "Cadastro";

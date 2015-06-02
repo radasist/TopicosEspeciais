@@ -72,6 +72,16 @@ if ($_POST["enviado"]) {
     <div class="principal-container">
         
     </div>
+
+    <div class="confirm-outer show">
+        <div class="confirm-container">
+            <div class="confirm-message">Tem certeza que deseja excluir "Fulado de Tal"?</div>
+            <div class="confirm-buttons">
+                <a href="#" class="confirm-yes">Sim</a>
+                <a href="#" class="confirm-no">Não</a>
+            </div>
+        </div>
+    </div>
     <!-- <div class="login-container <?=$showError?>">
         <h1>Login</h1>
         <form method="post" action="index.php">
