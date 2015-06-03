@@ -60,14 +60,14 @@ if ($sexo == "masc") {
     <label for="datanasc">Data de nascimento</label>
     <input type="date" id="datanasc" name="datanasc" placeholder="Data de nascimento" value="<?=$datanasc?>" required>
     <label>Sexo</label>
-    <div class="line"><input type="radio" id="masc" name="sexo" value="masc" <?=$sexomasc?>><label for="masc">Masculino</label><input type="radio" id="fem" name="sexo" value="fem" <?=$sexofem?>><label for="fem">Feminino</label></div>
+    <div class="line"><input type="radio" id="masc" name="sexo" value="masc" <?=$sexomasc?> required><label for="masc">Masculino</label><input type="radio" id="fem" name="sexo" value="fem" <?=$sexofem?> required><label for="fem">Feminino</label></div>
     <label for="usuario">Usuário</label>
     <input type="text" id="usuario" name="usuario" placeholder="Usuário" value="<?=$usuario?>" required>
     <label for="senha">Senha</label>
     <input type="password" id="senha" name="senha" placeholder="Senha" value="<?=$senha?>" required>
     <label for="senha2">Repita a senha</label>
     <input type="password" id="senha2" name="senha2" placeholder="Repita a senha" value="<?=$senha?>" required>
-    <input type="button" page="cadastroCliente" id="cadastrar" value="Cadastrar">
+    <input type="submit" page="cadastroCliente" id="cadastrar" value="Cadastrar">
 </form>
 
 
