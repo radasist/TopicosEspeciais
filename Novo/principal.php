@@ -73,7 +73,7 @@ if ($_POST["enviado"]) {
         
     </div>
 
-    <div class="confirm-outer show">
+    <div class="confirm-outer">
         <div class="confirm-container">
             <div class="confirm-message">Tem certeza que deseja excluir "Fulado de Tal"?</div>
             <div class="confirm-buttons">

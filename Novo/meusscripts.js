@@ -14,30 +14,42 @@ var addPagesListeners = function() {
     	});
     });
 
-   //  $("a.confirm").each(function() {
-   //  	$(this).click(function(){
-			// $(".principal-container").html("Carregando...");
-
-			// var data = $(this).attr("data");
-			// var loadPageContent = $.post($(this).attr("page")+".php", {id: data}, function(result){
-   //              $(".principal-container").html(result);
-   //              addPagesListeners();
-   //          });
-   //          loadPageContent.fail(function() {
-			// 	$(".principal-container").html("Ocorreu um erro...");
-			// });
-   //  	});
-   //  });
-
-    $("input[type=button]").each(function() {
+    $("a.confirm").each(function() {
     	$(this).click(function(){
-    		var sendForm = $.post($(this).attr("page")+".php", getFormValues(), function(result){
-                $(".principal-container").html(result);
-                addPagesListeners();
-            });
-            sendForm.fail(function() {
-				$(".principal-container").html("Ocorreu um erro...");
+    		var data = $(this).attr("data");
+    		var message = $(this).attr("msg");
+    		var page = $(this).attr("page");
+
+			$(".confirm-message").html(message);
+			$(".confirm-outer").addClass("show");
+
+			$("a.confirm-yes").unbind();
+			$("a.confirm-yes").click(function(){
+				$(".confirm-outer").removeClass("show");
+				var loadPageContent = $.post(page+".php", {id: data}, function(result){
+	                $(".principal-container").html(result);
+	                addPagesListeners();
+	            });
+	            loadPageContent.fail(function() {
+					$(".principal-container").html("Ocorreu um erro...");
+				});
 			});
+    	});
+    });
+
+    $("input[type=submit]").each(function() {
+    	$(this).click(function(e){
+    		if ($("form")[0].checkValidity() == true) {
+    			e.preventDefault();
+
+	    		var sendForm = $.post($(this).attr("page")+".php", getFormValues(), function(result){
+	                $(".principal-container").html(result);
+	                addPagesListeners();
+	            });
+	            sendForm.fail(function() {
+					$(".principal-container").html("Ocorreu um erro...");
+				});
+    		}
     	});
     });
 };
