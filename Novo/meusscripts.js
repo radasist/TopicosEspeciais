@@ -1,20 +1,34 @@
+var showMessage = function(type, message) {
+	$("div.message-bar").removeClass("error");
+	$("div.message-bar").removeClass("success");
+	$("div.message-bar-message").html(message);
+	$("div.message-bar").addClass(type);
+	$("div.message-bar").addClass("show");
+
+	setTimeout(function(){
+		$("div.message-bar").removeClass("show");
+	}, 3000);
+};
+
 var addPagesListeners = function() {
-	$("a.link").each(function() {
+	$("span.link").each(function() {
     	$(this).click(function(){
-			$(".principal-container").html("Carregando...");
+			$(".progress-bar").addClass("show");
 
 			var data = $(this).attr("data");
 			var loadPageContent = $.post($(this).attr("page")+".php", {id: data}, function(result){
                 $(".principal-container").html(result);
+                $(".progress-bar").removeClass("show");
                 addPagesListeners();
             });
             loadPageContent.fail(function() {
-				$(".principal-container").html("Ocorreu um erro...");
+            	$(".progress-bar").removeClass("show");
+				showMessage("error", "Ocorreu um erro e não foi possível acessar a página solicitada!");
 			});
     	});
     });
 
-    $("a.confirm").each(function() {
+    $("span.confirm").each(function() {
     	$(this).click(function(){
     		var data = $(this).attr("data");
     		var message = $(this).attr("msg");
@@ -23,15 +37,19 @@ var addPagesListeners = function() {
 			$(".confirm-message").html(message);
 			$(".confirm-outer").addClass("show");
 
-			$("a.confirm-yes").unbind();
-			$("a.confirm-yes").click(function(){
+			$("span.confirm-yes").unbind();
+			$("span.confirm-yes").click(function(){
 				$(".confirm-outer").removeClass("show");
+				$(".progress-bar").addClass("show");
 				var loadPageContent = $.post(page+".php", {id: data}, function(result){
 	                $(".principal-container").html(result);
+	                $(".progress-bar").removeClass("show");
 	                addPagesListeners();
+	                showMessage("success", "Ação completada com sucesso!");
 	            });
 	            loadPageContent.fail(function() {
-					$(".principal-container").html("Ocorreu um erro...");
+	            	$(".progress-bar").removeClass("show");
+					showMessage("error", "Ocorreu um erro e não foi possível completar a ação solicitada!");
 				});
 			});
     	});
@@ -41,13 +59,15 @@ var addPagesListeners = function() {
     	$(this).click(function(e){
     		if ($("form")[0].checkValidity() == true) {
     			e.preventDefault();
-
+    			$(".progress-bar").addClass("show");
 	    		var sendForm = $.post($(this).attr("page")+".php", getFormValues(), function(result){
 	                $(".principal-container").html(result);
 	                addPagesListeners();
+	                $(".progress-bar").removeClass("show");
 	            });
 	            sendForm.fail(function() {
-					$(".principal-container").html("Ocorreu um erro...");
+	            	$(".progress-bar").removeClass("show");
+					showMessage("error", "Ocorreu um erro e não foi possível completar o cadastro/alteração!");
 				});
     		}
     	});
@@ -76,15 +96,17 @@ $(document).ready(function() {
 
 	$("li").each(function() {
 		$(this).click(function(){
-            $(".principal-container").html("Carregando...");
+            $(".progress-bar").addClass("show");
             $("body").removeClass("menu-open");
 
 			var loadPageMenu = $.post($(this).attr("page")+".php", {}, function(result){
                 $(".principal-container").html(result);
+                $(".progress-bar").removeClass("show");
                 addPagesListeners();
             });
             loadPageMenu.fail(function() {
-				$(".principal-container").html("Ocorreu um erro...");
+            	$(".progress-bar").removeClass("show");
+				showMessage("error", "Ocorreu um erro e não foi possível acessar a opção solicitada!");
 			});
 		});
 	});
@@ -93,8 +115,12 @@ $(document).ready(function() {
     	$("body").removeClass("menu-open");
     });
 
-	$("a.confirm-no").click(function(){
+	$("span.confirm-no").click(function(){
 		$("div.confirm-outer").removeClass("show");
+	});
+
+	$("div.message-bar-close").click(function(){
+		$("div.message-bar").removeClass("show");
 	});
 });
 

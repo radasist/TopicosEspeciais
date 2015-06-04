@@ -2,7 +2,7 @@
 
 error_reporting(0);
 
-require("conexao.php");
+require_once("conexao.php");
 
 
 if ($_POST["id"]) {
@@ -19,7 +19,7 @@ $usuariosLength = count($resultArray);
 ?>
 
 <h1>Consulta Cliente</h1>
-<a href="#" page="cadastroCliente" class="link">Cadastrar Cliente</a>
+<span page="cadastroCliente" class="link">Cadastrar Cliente</span>
 <table>
     <tr>
         <th>Nome</th>
@@ -42,15 +42,15 @@ $usuariosLength = count($resultArray);
             "<td>".$resultArray[$i]["data_nasc"]."</td>".
             "<td>".$sexo."</td>".
             "<td>".$resultArray[$i]["usuario"]."</td>".
-            "<td><a href=\"#\" page=\"cadastroCliente\" data=\"".$resultArray[$i]["id"]."\" class=\"link\">Alterar</a></td>".
-            "<td><a href=\"#\" page=\"consultaCliente\" data=\"".$resultArray[$i]["id"]."\" msg=\"Tem certeza que deseja excluir '".$resultArray[$i]["nome"]."'?\"  class=\"confirm\">Excluir</a></td>".
+            "<td><span href=\"#\" page=\"cadastroCliente\" data=\"".$resultArray[$i]["id"]."\" class=\"link\">Alterar</span></td>".
+            "<td><span href=\"#\" page=\"consultaCliente\" data=\"".$resultArray[$i]["id"]."\" msg=\"Tem certeza que deseja excluir '".$resultArray[$i]["nome"]."'?\"  class=\"confirm\">Excluir</span></td>".
         "</tr>";
     }
 
     ?>
 </table>
 
-<script>
+<script type="text/javascript">
     if (<?=(string)$result?> == 1) {
         alert("Cadastro excluído com sucesso!")
     } else if (<?=(string)$result?> == 0) {

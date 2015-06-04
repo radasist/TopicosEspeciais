@@ -2,13 +2,10 @@
 
 error_reporting(0);
 
-require("conexao.php");
+require_once("conexao.php");
 
 if ($_POST["id"]) {
     $id = $_POST["id"];
-    $label = "Alteração";
-} else {
-    $label = "Cadastro";
 }
 
 if ($_POST["enviado"]) {
@@ -21,7 +18,7 @@ if ($_POST["enviado"]) {
     $result = -1;
 }
 
-if ($_REQUEST["id"]) {
+if ($_POST["id"]) {
     $data = $sqlConn->query("SELECT * FROM usuarios WHERE id = '$id'");
     $resultArray = $data->fetch_all(MYSQLI_ASSOC);
 
@@ -30,6 +27,9 @@ if ($_REQUEST["id"]) {
     $sexo = $resultArray[0]["sexo"];
     $usuario = $resultArray[0]["usuario"];
     $senha = $resultArray[0]["senha"];
+
+    $labelTitle = "Alteração";
+    $labelSubmit = "Salvar";
 } else {
     $id = "0";
     $nome = "";
@@ -37,6 +37,9 @@ if ($_REQUEST["id"]) {
     $sexo = "";
     $usuario = "";
     $senha = "";
+
+    $labelTitle = "Cadastro";
+    $labelSubmit = "Cadastrar";
 }
 
 if ($sexo == "masc") {
@@ -51,7 +54,7 @@ if ($sexo == "masc") {
 ?>
 
 
-<h1><?=$label?> Cliente</h1>
+<h1><?=$labelTitle?> Cliente</h1>
 <form method="post" action="cadastroCliente.php" class="cadastro-cliente">
     <input type="hidden" name="enviado" value="1">
     <input type="hidden" name="id" value="<?=$id?>">
@@ -67,11 +70,11 @@ if ($sexo == "masc") {
     <input type="password" id="senha" name="senha" placeholder="Senha" value="<?=$senha?>" required>
     <label for="senha2">Repita a senha</label>
     <input type="password" id="senha2" name="senha2" placeholder="Repita a senha" value="<?=$senha?>" required>
-    <input type="submit" page="cadastroCliente" id="cadastrar" value="Cadastrar">
+    <input type="submit" page="cadastroCliente" id="cadastrar" value="<?=$labelSubmit?>">
 </form>
 
 
-<script>
+<script type="text/javascript">
     document.querySelector('form').addEventListener('submit', function(e) {
         var pass = document.querySelector('#senha').value.trim(),
             pass2 = document.querySelector('#senha2').value.trim();
@@ -85,11 +88,15 @@ if ($sexo == "masc") {
 
     if (<?=(string)$result?> == 1) {
         if (<?=(string)$id?> == 0) {
-            alert("Cadastro efetuado com sucesso!")
+            showMessage("success", "Cadastro efetuada com sucesso!");
         } else {
-            alert("Alteração salva com sucesso!")
+            showMessage("success", "Alteração efetuada com sucesso!");
         }
     } else if (<?=(string)$result?> == 0) {
-        alert("Ocorreu um erro, entre em contato com o administrador!");
+        if (<?=(string)$id?> == 0) {
+            showMessage("error", "Ocorreu um erro e não foi possível completar o cadastro!");
+        } else {
+            showMessage("error", "Ocorreu um erro e não foi possível salvar a alteração!");
+        }
     }
 </script>

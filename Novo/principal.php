@@ -2,7 +2,7 @@
 
 error_reporting(0);
 
-require("conexao.php");
+require_once("conexao.php");
 
 $showError = "";
 $usuario = "";
@@ -77,10 +77,17 @@ if ($_POST["enviado"]) {
         <div class="confirm-container">
             <div class="confirm-message">Tem certeza que deseja excluir "Fulado de Tal"?</div>
             <div class="confirm-buttons">
-                <a href="#" class="confirm-yes">Sim</a>
-                <a href="#" class="confirm-no">Não</a>
+                <span class="confirm-yes">Sim</span>
+                <span class="confirm-no">Não</span>
             </div>
         </div>
+    </div>
+
+    <div class="progress-bar"></div>
+
+    <div class="message-bar">
+        <div class="message-bar-message">Mensagem de teste!</div>
+        <div class="message-bar-close">Fechar</div>
     </div>
     <!-- <div class="login-container <?=$showError?>">
         <h1>Login</h1>
