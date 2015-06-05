@@ -14,7 +14,7 @@ if ($_POST["id"]) {
 $data = $sqlConn->query("SELECT id, nome, DATE_FORMAT(data_nasc,'%d/%m/%Y') as data_nasc, sexo, usuario FROM usuarios");
 $resultArray = $data->fetch_all(MYSQLI_ASSOC);
 
-$usuariosLength = count($resultArray);
+$resultLength = count($resultArray);
 
 ?>
 
@@ -26,11 +26,11 @@ $usuariosLength = count($resultArray);
         <th>Data nasc.</th>
         <th>Sexo</th>
         <th>Usuário</th>
-        <th>Ações   </th>
+        <th>Ações</th>
     </tr>
     <?php
 
-    for ($i=0; $i<$usuariosLength; $i++) { 
+    for ($i=0; $i<$resultLength; $i++) { 
         if ($resultArray[$i]["sexo"] == "masc") {
             $sexo = "Masculino";
         } else {

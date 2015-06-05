@@ -86,6 +86,9 @@ var getFormValues = function() {
 			allValues[this.name] = this.value;
 		}
 	});
+	$("select").each(function() {
+		allValues[this.name] = this.value;
+	});
 
 	return allValues;
 }

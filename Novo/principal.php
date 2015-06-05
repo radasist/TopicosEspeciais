@@ -60,8 +60,8 @@ if ($_POST["enviado"]) {
         <h3>Cadastros/Consultas</h3>
         <ul>
             <li page="consultaCliente">Clientes</li>
-            <li>Estabelecimentos</li>
-            <li>Grupos de estabelecimentos</li>
+            <li page="consultaEstabelecimento">Estabelecimentos</li>
+            <li page="consultaGrupo">Grupos de estabelecimentos</li>
             <li>Produtos</li>
         </ul>
         <h3>Sistema</h3>
