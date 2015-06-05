@@ -55,7 +55,7 @@ if ($sexo == "masc") {
 
 
 <h1><?=$labelTitle?> Cliente</h1>
-<form method="post" action="cadastroCliente.php" class="cadastro-cliente">
+<form class="cadastro-cliente">
     <input type="hidden" name="enviado" value="1">
     <input type="hidden" name="id" value="<?=$id?>">
     <label for="nome">Nome</label>

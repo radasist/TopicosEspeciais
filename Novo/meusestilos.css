@@ -356,7 +356,8 @@ h3 {
 	width: 100%;
 }
 
-.principal-container input {
+.principal-container input,
+.principal-container select {
 	display: block;
 	margin: 0 auto 10px;
 	width: 100%;
