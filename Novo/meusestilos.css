@@ -32,12 +32,36 @@ input[type=submit] {
 	font-weight: 600;
 	padding: 2px 15px 3px;
 	text-decoration: none;
+}
+
+input[type=submit] {
 	width: auto !important;
 }
 
 span:hover,
 input[type=submit]:hover {
 	background-color: #9cf;
+}
+
+span.sprite {
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	margin: 0 10px 0 0;
+	opacity: .5;
+	padding: 0;
+
+	transition: all .2s linear;
+	-webkit-transition: all .2s linear;
+}
+
+span.sprite:last-of-type {
+	margin: 0;
+}
+
+span.sprite:hover {
+	background-color: transparent;
+	opacity: 1;
 }
 
 p {
@@ -302,6 +326,9 @@ h3 {
 
 .principal-container table tr:hover {
 	background-color: #cfc !important;
+
+	transition: all .03s linear;
+	-webkit-transition: all .03s linear;
 }
 
 .principal-container table tr:nth-child(even) {
@@ -488,8 +515,14 @@ h3 {
 
 .message-bar .message-bar-message {
 	color: #fff;
+	display: inline-block;
+	margin: 0 50px 0 0;
 }
 
 .message-bar .message-bar-close {
-	display: none;
+	display: block;
+	margin: -8px 45px 0 0;
+	position: absolute;
+	right: 0;
+	top: 50%;
 }

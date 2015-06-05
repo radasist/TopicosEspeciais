@@ -1,3 +1,5 @@
+var timeoutMessage;
+
 var showMessage = function(type, message) {
 	$("div.message-bar").removeClass("error");
 	$("div.message-bar").removeClass("success");
@@ -5,7 +7,7 @@ var showMessage = function(type, message) {
 	$("div.message-bar").addClass(type);
 	$("div.message-bar").addClass("show");
 
-	setTimeout(function(){
+	timeoutMessage = setTimeout(function(){
 		$("div.message-bar").removeClass("show");
 	}, 3000);
 };
@@ -45,7 +47,6 @@ var addPagesListeners = function() {
 	                $(".principal-container").html(result);
 	                $(".progress-bar").removeClass("show");
 	                addPagesListeners();
-	                showMessage("success", "Ação completada com sucesso!");
 	            });
 	            loadPageContent.fail(function() {
 	            	$(".progress-bar").removeClass("show");
@@ -121,6 +122,16 @@ $(document).ready(function() {
 
 	$("div.message-bar-close").click(function(){
 		$("div.message-bar").removeClass("show");
+	});
+
+	$("div.message-bar").mouseleave(function(){
+		timeoutMessage = setTimeout(function(){
+			$("div.message-bar").removeClass("show");
+		}, 3000);
+	});
+	
+	$("div.message-bar").mouseover(function(){
+		clearTimeout(timeoutMessage);
 	});
 });
 

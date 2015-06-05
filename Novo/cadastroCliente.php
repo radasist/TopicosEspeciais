@@ -92,6 +92,12 @@ if ($sexo == "masc") {
         } else {
             showMessage("success", "Alteração efetuada com sucesso!");
         }
+
+        $.post("consultaCliente.php", {}, function(result){
+            $(".principal-container").html(result);
+            $(".progress-bar").removeClass("show");
+            addPagesListeners();
+        });
     } else if (<?=(string)$result?> == 0) {
         if (<?=(string)$id?> == 0) {
             showMessage("error", "Ocorreu um erro e não foi possível completar o cadastro!");

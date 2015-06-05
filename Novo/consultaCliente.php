@@ -26,7 +26,7 @@ $usuariosLength = count($resultArray);
         <th>Data nasc.</th>
         <th>Sexo</th>
         <th>Usuário</th>
-        <th colspan="2">Ações</th>
+        <th>Ações   </th>
     </tr>
     <?php
 
@@ -42,8 +42,8 @@ $usuariosLength = count($resultArray);
             "<td>".$resultArray[$i]["data_nasc"]."</td>".
             "<td>".$sexo."</td>".
             "<td>".$resultArray[$i]["usuario"]."</td>".
-            "<td><span href=\"#\" page=\"cadastroCliente\" data=\"".$resultArray[$i]["id"]."\" class=\"link\">Alterar</span></td>".
-            "<td><span href=\"#\" page=\"consultaCliente\" data=\"".$resultArray[$i]["id"]."\" msg=\"Tem certeza que deseja excluir '".$resultArray[$i]["nome"]."'?\"  class=\"confirm\">Excluir</span></td>".
+            "<td><span page=\"cadastroCliente\" data=\"".$resultArray[$i]["id"]."\" class=\"link sprite sprite-edit-black\" title=\"Editar\"></span>".
+            "<span page=\"consultaCliente\" data=\"".$resultArray[$i]["id"]."\" msg=\"Tem certeza que deseja excluir '".$resultArray[$i]["nome"]."'?\"  class=\"confirm sprite sprite-delete-black\" title=\"Excluir\"></span></td>".
         "</tr>";
     }
 
@@ -52,8 +52,8 @@ $usuariosLength = count($resultArray);
 
 <script type="text/javascript">
     if (<?=(string)$result?> == 1) {
-        alert("Cadastro excluído com sucesso!")
+        showMessage("success", "Ação completada com sucesso!");
     } else if (<?=(string)$result?> == 0) {
-        alert("Ocorreu um erro ao exluir o contato, entre em contato com o administrador!")
+        showMessage("error", "Ocorreu um erro e não foi possível completar a ação solicitada!");
     }
 </script>

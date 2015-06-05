@@ -32,6 +32,7 @@ if ($_POST["enviado"]) {
 </head>
 
 <link rel="stylesheet" type="text/css" href="meusestilos.css">
+<link rel="stylesheet" type="text/css" href="sprites/sprites.css">
 
 <script src="jquery-2.1.4.js"></script>
 
@@ -87,7 +88,7 @@ if ($_POST["enviado"]) {
 
     <div class="message-bar">
         <div class="message-bar-message">Mensagem de teste!</div>
-        <div class="message-bar-close">Fechar</div>
+        <div class="message-bar-close"><span class="sprite sprite-close-white"></span></div>
     </div>
     <!-- <div class="login-container <?=$showError?>">
         <h1>Login</h1>
