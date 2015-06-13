@@ -55,7 +55,7 @@ if ($_POST["enviado"]) {
         <h3>Consultas</h3>
         <ul>
             <li>Saldo</li>
-            <li>Movimentos</li>
+            <li page="movimentos">Movimentos</li>
         </ul>
         <h3>Registro</h3>
         <ul>
