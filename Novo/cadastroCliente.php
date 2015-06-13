@@ -10,9 +10,13 @@ if ($_POST["id"]) {
 
 if ($_POST["enviado"]) {
     if ($_POST["id"] == "0") {
-        $result = $sqlConn->query ("INSERT INTO usuarios (nome, data_nasc, sexo, usuario, senha, permissao) VALUES ('".$_POST["nome"]."', '".$_POST["datanasc"]."', '".$_POST["sexo"]."', '".$_POST["usuario"]."', '".$_POST["senha"]."', 'a')");
+        $result = $sqlConn->query ("INSERT INTO usuarios (nome, data_nasc, sexo, email, senha, permissao) VALUES ('".$_POST["nome"]."', '".$_POST["datanasc"]."', '".$_POST["sexo"]."', '".$_POST["email"]."', '".md5($_POST["senha"])."', '".$_POST["permissao"]."')");
     } else {
-        $result = $sqlConn->query ("UPDATE usuarios SET nome = '".$_POST["nome"]."', data_nasc = '".$_POST["datanasc"]."', sexo = '".$_POST["sexo"]."', usuario = '".$_POST["usuario"]."', senha = '".$_POST["senha"]."', permissao = 'a' WHERE id = '$id'");
+        if ($_POST["senha"] != "") {
+            $result = $sqlConn->query ("UPDATE usuarios SET nome = '".$_POST["nome"]."', data_nasc = '".$_POST["datanasc"]."', sexo = '".$_POST["sexo"]."', email = '".$_POST["email"]."', senha = '".md5($_POST["senha"])."', permissao = '".$_POST["permissao"]."' WHERE id = '$id'");
+        } else {
+            $result = $sqlConn->query ("UPDATE usuarios SET nome = '".$_POST["nome"]."', data_nasc = '".$_POST["datanasc"]."', sexo = '".$_POST["sexo"]."', email = '".$_POST["email"]."', permissao = '".$_POST["permissao"]."' WHERE id = '$id'");
+        }
     }
 } else {
     $result = -1;
@@ -25,37 +29,50 @@ if ($_POST["id"]) {
     $nome = $resultArray[0]["nome"];
     $datanasc = $resultArray[0]["data_nasc"];
     $sexo = $resultArray[0]["sexo"];
-    $usuario = $resultArray[0]["usuario"];
-    $senha = $resultArray[0]["senha"];
+    $email = $resultArray[0]["email"];
+    $senha = "";
+    $permissao = $resultArray[0]["permissao"];
 
     $labelTitle = "Alteração";
     $labelSubmit = "Salvar";
+    $passwordRequired = "";
 } else {
     $id = "0";
     $nome = "";
     $datanasc = "";
     $sexo = "";
-    $usuario = "";
+    $email = "";
     $senha = "";
 
     $labelTitle = "Cadastro";
     $labelSubmit = "Cadastrar";
+    $passwordRequired = "required";
 }
 
+$sexomasc == "";
+$sexofem == "";
 if ($sexo == "masc") {
     $sexomasc = "checked";
 } else if ($sexo == "fem"){
     $sexofem = "checked";
-} else {
-    $sexomasc == "";
-    $sexofem == "";
+}
+
+$permissaoA = "";
+$permissaoF = "";
+$permissaoC = "";
+if ($permissao == "a") {
+    $permissaoA = "selected";
+} else if ($permissao == "f") {
+    $permissaoF = "selected";
+} else if ($permissao == "c") {
+    $permissaoC = "selected";
 }
 
 ?>
 
 
 <h1><?=$labelTitle?> Cliente</h1>
-<form class="cadastro-cliente">
+<form class="cadastro-cliente" validate="usuario">
     <input type="hidden" name="enviado" value="1">
     <input type="hidden" name="id" value="<?=$id?>">
     <label for="nome">Nome</label>
@@ -64,28 +81,24 @@ if ($sexo == "masc") {
     <input type="date" id="datanasc" name="datanasc" placeholder="Data de nascimento" value="<?=$datanasc?>" required>
     <label>Sexo</label>
     <div class="line"><input type="radio" id="masc" name="sexo" value="masc" <?=$sexomasc?> required><label for="masc">Masculino</label><input type="radio" id="fem" name="sexo" value="fem" <?=$sexofem?> required><label for="fem">Feminino</label></div>
-    <label for="usuario">Usuário</label>
-    <input type="text" id="usuario" name="usuario" placeholder="Usuário" value="<?=$usuario?>" required>
+    <label for="usuario">Email</label>
+    <input type="text" id="email" name="email" placeholder="Email" value="<?=$email?>" pattern="[a-z\d\.]{1,}@[a-zA-Z\d\.]{1,}[\.][a-zA-Z\d\.]{2,3}" title="Digite um email válido." required>
     <label for="senha">Senha</label>
-    <input type="password" id="senha" name="senha" placeholder="Senha" value="<?=$senha?>" required>
+    <input type="password" id="senha" name="senha" placeholder="Senha" value="<?=$senha?>" <?=$passwordRequired?>>
     <label for="senha2">Repita a senha</label>
-    <input type="password" id="senha2" name="senha2" placeholder="Repita a senha" value="<?=$senha?>" required>
+    <input type="password" id="senha2" name="senha2" placeholder="Repita a senha" value="<?=$senha?>" <?=$passwordRequired?>>
+    <label for="permissao">Permissão</label>
+    <select id="permissao" name="permissao" required>
+        <option value="">Selecione...</option>
+        <option value="a" <?=$permissaoA?>>Administrador</option>
+        <option value="f" <?=$permissaoF?>>Frentista</option>
+        <option value="c" <?=$permissaoC?>>Cliente</option>
+    </select>
     <input type="submit" page="cadastroCliente" id="cadastrar" value="<?=$labelSubmit?>">
 </form>
 
 
 <script type="text/javascript">
-    document.querySelector('form').addEventListener('submit', function(e) {
-        var pass = document.querySelector('#senha').value.trim(),
-            pass2 = document.querySelector('#senha2').value.trim();
-
-        if (pass != pass2) {
-            e.preventDefault();
-            alert("As senhas são diferentes!");
-            document.querySelector('#senha').focus();
-        }
-    }, false);
-
     if (<?=(string)$result?> == 1) {
         if (<?=(string)$id?> == 0) {
             showMessage("success", "Cadastro efetuada com sucesso!");

@@ -1,5 +1,25 @@
 var timeoutMessage;
 
+var isValid = function() {
+	var validate = $("form").attr("validate");
+	console.log(validate);
+	if (validate = "usuario") {
+		var senha = $("input#senha").val();
+		var senha2 = $("input#senha2").val();
+		console.log(senha);
+		console.log(senha2);
+		if (senha == senha2) {
+			return true;
+		} else {
+			showMessage("error", "As duas senhas são diferentes, por favor verifique!");
+			$("input#senha").focus();
+			return false;
+		}
+	} else {
+		return true;
+	}
+}
+
 var showMessage = function(type, message) {
 	$("div.message-bar").removeClass("error");
 	$("div.message-bar").removeClass("success");
@@ -58,7 +78,7 @@ var addPagesListeners = function() {
 
     $("input[type=submit]").each(function() {
     	$(this).click(function(e){
-    		if ($("form")[0].checkValidity() == true) {
+    		if ($("form")[0].checkValidity() == true && isValid() == true) {
     			e.preventDefault();
     			$(".progress-bar").addClass("show");
 	    		var sendForm = $.post($(this).attr("page")+".php", getFormValues(), function(result){
@@ -70,6 +90,8 @@ var addPagesListeners = function() {
 	            	$(".progress-bar").removeClass("show");
 					showMessage("error", "Ocorreu um erro e não foi possível completar o cadastro/alteração!");
 				});
+    		} else if ($("form")[0].checkValidity() == true) {
+    			e.preventDefault();
     		}
     	});
     });
