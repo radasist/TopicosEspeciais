@@ -2,18 +2,23 @@
 
 error_reporting(0);
 
+session_start();
+session_unset();
 require("conexao.php");
 
 $showError = "";
-$usuario = "";
+$email = "";
+$senha = "";
 
 if ($_POST["enviado"]) {
-    $usuario = $_POST["usuario"];
+    $email = $_POST["email"];
+    $senha = $_POST["senha"];
 
-    $data = $sqlConn->query("SELECT 1 FROM usuarios WHERE usuario = '".$_POST["usuario"]."' AND senha = '".$_POST["senha"]."'");
+    $data = $sqlConn->query("SELECT id FROM usuarios WHERE LOWER(email) = LOWER('".$_POST["email"]."') AND LOWER(senha) = LOWER('".md5($_POST["senha"])."')");
     $resultArray = $data->fetch_all(MYSQLI_ASSOC);
-
-    if ($resultArray[0][1]) {
+    
+    if (count($resultArray) > 0) {
+        $_SESSION["idUsuario"] = $resultArray[0]["id"];
         header('Location: principal.php');
         die();
     } else {
@@ -44,32 +49,23 @@ if ($_POST["enviado"]) {
 
     <div class="content-index">
         <h1>Sistema de pontuação</h1>
-        <p><strong>Indique seus amigos</strong>, e <strong>ganhe bônus</strong> com o abastecimento do carro deles! (depois a gente muda)</p>
+        <p><strong>Indique seus amigos</strong>, eles abastecem e fazem compras e você <strong>ganha bônus</strong>!</p>
     </div>
 
-    <div class="content-login">
+    <div class="content-login <?=$showError?>">
         <h3>Login</h3>
         <form method="post" action="index.php">
             <input type="hidden" name="enviado" value="1">
-            <input type="text" name="usuario" placeholder="usuário" value="<?=$usuario?>" required autofocus>
-            <input type="password" name="senha" placeholder="senha" required>
+            <input type="text" name="email" placeholder="email" value="<?=$email?>" required autofocus>
+            <input type="password" name="senha" placeholder="senha" value="<?=$senha?>" required>
             <input type="submit" value="Login">
         </form>
+        <div class="error">Email e/ou senha incorretos!</div>
     </div>
     
     <div class="content-index">
         <p><a href="cadastrase.php">Faça já seu cadastro!</a></p>
     </div>
-    <!-- <div class="login-container <?=$showError?>">
-        <h1>Login</h1>
-        <form method="post" action="index.php">
-            <input type="hidden" name="enviado" value="1">
-            <input type="text" name="usuario" placeholder="usuário" value="<?=$usuario?>" required autofocus>
-            <input type="password" name="senha" placeholder="senha" required>
-            <input type="submit" value="Login">
-        </form>
-        <div class="error">Usuário e/ou senha incorretos!</div>
-    </div> -->
 </body>
 
 </html>

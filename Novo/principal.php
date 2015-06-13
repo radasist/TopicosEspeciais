@@ -2,7 +2,11 @@
 
 error_reporting(0);
 
+$page = "principal";
+
+session_start();
 require_once("conexao.php");
+require_once("permissaoPagina.php");
 
 $showError = "";
 $usuario = "";
@@ -55,14 +59,14 @@ if ($_POST["enviado"]) {
         </ul>
         <h3>Registro</h3>
         <ul>
-            <li>Abastecimento</li>
+            <li page="abastecimento">Abastecimento</li>
         </ul>
         <h3>Cadastros/Consultas</h3>
         <ul>
             <li page="consultaCliente">Clientes</li>
             <li page="consultaEstabelecimento">Estabelecimentos</li>
             <li page="consultaGrupo">Grupos de estabelecimentos</li>
-            <li>Produtos</li>
+            <li page="consultaProduto">Produtos</li>
         </ul>
         <h3>Sistema</h3>
         <ul>

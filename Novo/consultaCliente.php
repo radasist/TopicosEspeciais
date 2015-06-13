@@ -11,7 +11,7 @@ if ($_POST["id"]) {
     $result = -1;
 }
 
-$data = $sqlConn->query("SELECT id, nome, DATE_FORMAT(data_nasc,'%d/%m/%Y') as data_nasc, sexo, usuario FROM usuarios");
+$data = $sqlConn->query("SELECT id, nome, DATE_FORMAT(data_nasc,'%d/%m/%Y') as data_nasc, sexo, email FROM usuarios");
 $resultArray = $data->fetch_all(MYSQLI_ASSOC);
 
 $resultLength = count($resultArray);
@@ -25,7 +25,7 @@ $resultLength = count($resultArray);
         <th>Nome</th>
         <th>Data nasc.</th>
         <th>Sexo</th>
-        <th>Usuário</th>
+        <th>Email</th>
         <th>Ações</th>
     </tr>
     <?php
@@ -41,7 +41,7 @@ $resultLength = count($resultArray);
             "<td>".$resultArray[$i]["nome"]."</td>".
             "<td>".$resultArray[$i]["data_nasc"]."</td>".
             "<td>".$sexo."</td>".
-            "<td>".$resultArray[$i]["usuario"]."</td>".
+            "<td>".$resultArray[$i]["email"]."</td>".
             "<td><span page=\"cadastroCliente\" data=\"".$resultArray[$i]["id"]."\" class=\"link sprite sprite-edit-black\" title=\"Editar\"></span>".
             "<span page=\"consultaCliente\" data=\"".$resultArray[$i]["id"]."\" msg=\"Tem certeza que deseja excluir '".$resultArray[$i]["nome"]."'?\"  class=\"confirm sprite sprite-delete-black\" title=\"Excluir\"></span></td>".
         "</tr>";
