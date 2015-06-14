@@ -54,12 +54,13 @@ if ($_POST["enviado"]) {
         <h1>Menu</h1>
         <h3>Consultas</h3>
         <ul>
-            <li>Saldo</li>
+            <li page="saldo">Saldo</li>
             <li page="movimentos">Movimentos</li>
         </ul>
         <h3>Registro</h3>
         <ul>
             <li page="abastecimento">Abastecimento</li>
+            <li page="indicacao">Indicação</li>
         </ul>
         <h3>Cadastros/Consultas</h3>
         <ul>
@@ -70,7 +71,7 @@ if ($_POST["enviado"]) {
         </ul>
         <h3>Sistema</h3>
         <ul>
-            <li>Configurações</li>
+            <li page="configuracoes">Configurações</li>
         </ul>
     </div>
 
@@ -94,16 +95,6 @@ if ($_POST["enviado"]) {
         <div class="message-bar-message">Mensagem de teste!</div>
         <div class="message-bar-close"><span class="sprite sprite-close-white"></span></div>
     </div>
-    <!-- <div class="login-container <?=$showError?>">
-        <h1>Login</h1>
-        <form method="post" action="index.php">
-            <input type="hidden" name="enviado" value="1">
-            <input type="text" name="usuario" placeholder="usuário" value="<?=$usuario?>" required autofocus>
-            <input type="password" name="senha" placeholder="senha" required>
-            <input type="submit" value="Login">
-        </form>
-        <div class="error">Usuário e/ou senha incorretos!</div>
-    </div> -->
 </body>
 
 <script src="meusscripts.js"></script>

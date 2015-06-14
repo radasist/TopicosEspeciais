@@ -2,7 +2,7 @@
 
 error_reporting(0);
 
-$page = "movimentos";
+$page = "saldo";
 
 session_start();
 require_once("conexao.php");
@@ -14,9 +14,9 @@ if ($_POST["cliente"]) {
     $id = $_SESSION["idUsuario"];
 }
 
-$data = $sqlConn->query ("SELECT prod.nome AS produto, mov.quantidade, mov.total FROM movimentos mov, produtos prod WHERE mov.produto = prod.id AND mov.cliente = '".$id."' ORDER BY mov.id");
+$data = $sqlConn->query ("SELECT bonus FROM usuarios WHERE id = '".$id."'");
 $resultArray = $data->fetch_all(MYSQLI_ASSOC);
-$resultLength = count($resultArray);
+$bonus = $resultArray[0]["bonus"];
 
 $dataClientes = $sqlConn->query("SELECT id, nome, email FROM usuarios");
 $resultArrayClientes = $dataClientes->fetch_all(MYSQLI_ASSOC);
@@ -24,7 +24,7 @@ $resultArrayClientesLength = count($resultArrayClientes);
 ?>
 
 
-<h1>Consulta Movimentos</h1>
+<h1>Consulta Saldo Bônus</h1>
 <form class="cadastro-cliente">
     <input type="hidden" name="enviado" value="1">
     <label for="cliente">Cliente</label>
@@ -40,27 +40,6 @@ $resultArrayClientesLength = count($resultArrayClientes);
             }
         ?>
     </select>
-    <input type="submit" page="movimentos" id="cadastrar" value="Consultar">
+    <input type="submit" page="saldo" id="cadastrar" value="Consultar">
 </form>
-<table>
-    <tr>
-        <th>Produto</th>
-        <th>Valor R$</th>
-        <th>Quantidade</th>
-        <th>Total R$</th>
-    </tr>
-    <?php
-
-    for ($i=0; $i<$resultLength; $i++) {
-        $valor = $resultArray[$i]["total"] / $resultArray[$i]["quantidade"];
-        $valor = number_format($valor, 2, ".", "");
-        echo "<tr>".
-            "<td>".$resultArray[$i]["produto"]."</td>".
-            "<td>".$valor."</td>".
-            "<td>".$resultArray[$i]["quantidade"]."</td>".
-            "<td>".$resultArray[$i]["total"]."</td>".
-        "</tr>";
-    }
-
-    ?>
-</table>
+<p>O saldo de bônus disponível é de <strong>R$ <?=$bonus?></strong>.</p>
