@@ -2,12 +2,10 @@ var timeoutMessage;
 
 var isValid = function() {
 	var validate = $("form").attr("validate");
-	console.log(validate);
+	
 	if (validate = "usuario") {
 		var senha = $("input#senha").val();
 		var senha2 = $("input#senha2").val();
-		console.log(senha);
-		console.log(senha2);
 		if (senha == senha2) {
 			return true;
 		} else {
