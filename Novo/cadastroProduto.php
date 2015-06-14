@@ -74,7 +74,7 @@ $resultArrayEstabelecimentosLength = count($resultArrayEstabelecimentos);
 <script type="text/javascript">
     if (<?=(string)$result?> == 1) {
         if (<?=(string)$id?> == 0) {
-            showMessage("success", "Cadastro efetuada com sucesso!");
+            showMessage("success", "Cadastro efetuado com sucesso!");
         } else {
             showMessage("success", "Alteração efetuada com sucesso!");
         }

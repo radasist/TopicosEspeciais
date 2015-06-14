@@ -5,9 +5,9 @@ $resultArrayPermissao = $dataPermissao->fetch_all(MYSQLI_ASSOC);
 $_SESSION["permissao"] = $resultArrayPermissao[0]["permissao"];
 
 if (count($resultArrayPermissao) > 0) {
-	if ($page = "configuracao" && $resultArrayPermissao[0]["permissao"] != "a") {
+	if ($page =="configuracoes" && $resultArrayPermissao[0]["permissao"] != "a") {
 		die();
-	} else if ($page = "abastecimento" && $resultArrayPermissao[0]["permissao"] == "c") {
+	} else if ($page == "abastecimento" && ($resultArrayPermissao[0]["permissao"] != "f" || $resultArrayPermissao[0]["permissao"] != "a")) {
 		die();
 	}
 } else {
