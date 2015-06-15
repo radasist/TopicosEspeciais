@@ -12,7 +12,7 @@ if ($_POST["enviado"]) {
     if ($_POST["id"] == "0") {
         $result = $sqlConn->query ("INSERT INTO produtos (nome, valor, estabelecimento) VALUES ('".$_POST["nome"]."', '".$_POST["valor"]."', '".$_POST["estabelecimento"]."')");
     } else {
-        $result = $sqlConn->query ("UPDATE produtos SET nome = '".$_POST["nome"]."', razaosocial = '".$_POST["valor"]."', grupo = '".$_POST["estabelecimento"]."' WHERE id = '$id'");
+        $result = $sqlConn->query ("UPDATE produtos SET nome = '".$_POST["nome"]."', valor = '".$_POST["valor"]."', estabelecimento = '".$_POST["estabelecimento"]."' WHERE id = '$id'");
     }
 } else {
     $result = -1;
