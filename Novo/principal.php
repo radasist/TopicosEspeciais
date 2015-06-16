@@ -54,24 +54,25 @@ if ($_POST["enviado"]) {
         <h1>Menu</h1>
         <h3>Consultas</h3>
         <ul>
-            <li page="saldo">Saldo</li>
-            <li page="movimentos">Movimentos</li>
+            <li class="site" page="saldo">Saldo</li>
+            <li class="site" page="movimentos">Movimentos</li>
         </ul>
         <h3>Registro</h3>
         <ul>
-            <li page="abastecimento">Abastecimento</li>
-            <li page="indicacao">Indicação</li>
+            <li class="site" page="abastecimento">Abastecimento</li>
+            <li class="site" page="indicacao">Indicação</li>
         </ul>
         <h3>Cadastros/Consultas</h3>
         <ul>
-            <li page="consultaCliente">Clientes</li>
-            <li page="consultaEstabelecimento">Estabelecimentos</li>
-            <li page="consultaGrupo">Grupos de estabelecimentos</li>
-            <li page="consultaProduto">Produtos</li>
+            <li class="site" page="consultaCliente">Clientes</li>
+            <li class="site" page="consultaEstabelecimento">Estabelecimentos</li>
+            <li class="site" page="consultaGrupo">Grupos de estabelecimentos</li>
+            <li class="site" page="consultaProduto">Produtos</li>
         </ul>
         <h3>Sistema</h3>
         <ul>
-            <li page="configuracoes">Configurações</li>
+            <li class="site" page="configuracoes">Configurações</li>
+            <li class="link" page="index.php">Logout</li>
         </ul>
     </div>
 
