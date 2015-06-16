@@ -114,11 +114,11 @@ var getFormValues = function() {
 }
 
 $(document).ready(function() {
-	$(".menu-button").click(function(){
+	$("div.menu-button").click(function(){
 		$("body").toggleClass("menu-open");
 	});
 
-	$("li").each(function() {
+	$("li.site").each(function() {
 		$(this).click(function(){
             $(".progress-bar").addClass("show");
             $("body").removeClass("menu-open");
@@ -132,6 +132,12 @@ $(document).ready(function() {
             	$(".progress-bar").removeClass("show");
 				showMessage("error", "Ocorreu um erro e não foi possível acessar a opção solicitada!");
 			});
+		});
+	});
+
+	$("li.link").each(function() {
+		$(this).click(function() {
+			window.location.assign($(this).attr("page"));
 		});
 	});
 

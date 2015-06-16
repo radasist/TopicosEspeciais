@@ -2,7 +2,11 @@
 
 error_reporting(0);
 
+$page = "cadastros_consultas";
+
+session_start();
 require_once("conexao.php");
+require_once("permissaoPagina.php");
 
 if ($_POST["id"]) {
     $id = $_POST["id"];
