@@ -18,7 +18,11 @@ var isValid = function() {
 	}
 }
 
-var showMessage = function(type, message) {
+var showMessage = function(type, message, time) {
+	if (typeof time == "undefined") {
+		time = 3000;
+	}
+
 	$("div.message-bar").removeClass("error");
 	$("div.message-bar").removeClass("success");
 	$("div.message-bar-message").html(message);
@@ -27,7 +31,7 @@ var showMessage = function(type, message) {
 
 	timeoutMessage = setTimeout(function(){
 		$("div.message-bar").removeClass("show");
-	}, 3000);
+	}, time);
 };
 
 var addPagesListeners = function() {

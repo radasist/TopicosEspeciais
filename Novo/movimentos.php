@@ -26,6 +26,7 @@ $resultArrayClientesLength = count($resultArrayClientes);
 
 <h1>Consulta Movimentos</h1>
 <form class="cadastro-cliente">
+    <?php if ($_SESSION["permissao"] == "a" || $_SESSION["permissao"] == "f") { ?>
     <input type="hidden" name="enviado" value="1">
     <label for="cliente">Cliente</label>
     <select id="cliente" name="cliente" required>
@@ -41,6 +42,7 @@ $resultArrayClientesLength = count($resultArrayClientes);
         ?>
     </select>
     <input type="submit" page="movimentos" id="cadastrar" value="Consultar">
+    <?php } ?>
 </form>
 <table>
     <tr>

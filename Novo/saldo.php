@@ -26,6 +26,7 @@ $resultArrayClientesLength = count($resultArrayClientes);
 
 <h1>Consulta Saldo Bônus</h1>
 <form class="cadastro-cliente">
+    <?php if ($_SESSION["permissao"] == "a" || $_SESSION["permissao"] == "f") { ?>
     <input type="hidden" name="enviado" value="1">
     <label for="cliente">Cliente</label>
     <select id="cliente" name="cliente" required>
@@ -41,5 +42,6 @@ $resultArrayClientesLength = count($resultArrayClientes);
         ?>
     </select>
     <input type="submit" page="saldo" id="cadastrar" value="Consultar">
+    <?php } ?>
 </form>
 <p>O saldo de bônus disponível é de <strong>R$ <?=$bonus?></strong>.</p>

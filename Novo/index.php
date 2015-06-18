@@ -64,7 +64,7 @@ if ($_POST["enviado"]) {
     </div>
     
     <div class="content-index">
-        <p><a href="cadastrase.php">Faça já seu cadastro!</a></p>
+        <p><a href="simplePage.php">Faça já seu cadastro!</a></p>
     </div>
 </body>
 

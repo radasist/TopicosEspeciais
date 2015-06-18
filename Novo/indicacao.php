@@ -28,21 +28,33 @@ $dataClientes = $sqlConn->query("SELECT id, nome, email FROM usuarios");
 $resultArrayClientes = $dataClientes->fetch_all(MYSQLI_ASSOC);
 $resultArrayClientesLength = count($resultArrayClientes);
 
+if ($_POST["indica"]) {
+    $id = $_POST["indica"];
+} else {
+    $id = $_SESSION["idUsuario"];
+}
+
 ?>
 
 
 <h1>Indicações</h1>
 <form class="cadastro-cliente">
     <input type="hidden" name="enviado" value="1">
+    <?php if ($_SESSION["permissao"] == "a" || $_SESSION["permissao"] == "f") { ?>
     <label for="indica">Quem indica</label>
     <select id="indica" name="indica" required>
         <option value="">Selecione...</option>
         <?php
             for ($i=0; $i<$resultArrayClientesLength; $i++) {
-                echo "<option value=\"".$resultArrayClientes[$i]["id"]."\">".$resultArrayClientes[$i]["nome"]." - ".$resultArrayClientes[$i]["email"]."</option>";
+                $seleted = "";
+                if ($resultArrayClientes[$i]["id"] == $id) {
+                    $seleted = "selected";
+                }
+                echo "<option value=\"".$resultArrayClientes[$i]["id"]."\" $seleted>".$resultArrayClientes[$i]["nome"]." - ".$resultArrayClientes[$i]["email"]."</option>";
             }
         ?>
     </select>
+    <?php } ?>
     <label for="emailindicado">Email do Indicado</label>
     <input type="text" id="emailindicado" name="emailindicado" placeholder="Email do Indicado" pattern="[a-z\d\.]{1,}@[a-zA-Z\d\.]{1,}[\.][a-zA-Z\d\.]{2,3}" title="Digite um email válido." required>
     <input type="submit" page="indicacao" id="cadastrar" value="Salvar">
