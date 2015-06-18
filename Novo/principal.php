@@ -59,9 +59,12 @@ if ($_POST["enviado"]) {
         </ul>
         <h3>Registro</h3>
         <ul>
+            <?php if ($_SESSION["permissao"] == "a" || $_SESSION["permissao"] == "f") { ?>
             <li class="site" page="abastecimento">Abastecimento</li>
+            <?php } ?>
             <li class="site" page="indicacao">Indicação</li>
         </ul>
+        <?php if ($_SESSION["permissao"] == "a") { ?>
         <h3>Cadastros/Consultas</h3>
         <ul>
             <li class="site" page="consultaCliente">Clientes</li>
@@ -69,9 +72,12 @@ if ($_POST["enviado"]) {
             <li class="site" page="consultaGrupo">Grupos de estabelecimentos</li>
             <li class="site" page="consultaProduto">Produtos</li>
         </ul>
+        <?php } ?>
         <h3>Sistema</h3>
         <ul>
+            <?php if ($_SESSION["permissao"] == "a") { ?>
             <li class="site" page="configuracoes">Configurações</li>
+            <?php } ?>
             <li class="link" page="index.php">Logout</li>
         </ul>
     </div>
