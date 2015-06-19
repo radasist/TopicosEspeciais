@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: 14-Jun-2015 às 20:16
+-- Generation Time: 18-Jun-2015 às 19:13
 -- Versão do servidor: 5.5.42
 -- PHP Version: 5.4.40
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `indicacao` (
   `indica` int(11) NOT NULL,
   `indicado` int(11) NOT NULL DEFAULT '0',
   `emailindicado` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `indicacao`
@@ -99,7 +99,9 @@ INSERT INTO `indicacao` (`id`, `indica`, `indicado`, `emailindicado`) VALUES
 (6, 41, 42, 'feliciamegue@gmail.com'),
 (7, 42, 43, 'gersonstreit@gmail.com'),
 (8, 43, 44, 'megue@gmail.com'),
-(9, 44, 45, 'isis@gmail.com');
+(9, 44, 45, 'isis@gmail.com'),
+(10, 4, 0, 'lu@gmail.com'),
+(11, 4, 0, 'le@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -113,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `movimentos` (
   `produto` int(11) NOT NULL,
   `quantidade` decimal(10,3) NOT NULL,
   `total` decimal(10,2) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `movimentos`
@@ -151,11 +153,39 @@ INSERT INTO `movimentos` (`id`, `cliente`, `produto`, `quantidade`, `total`) VAL
 (29, 45, 1, '1.000', '10.00'),
 (30, 45, 1, '1.000', '10.00'),
 (31, 45, 1, '1.000', '10.00'),
-(32, 45, 1, '1.000', '10.00');
+(32, 45, 1, '1.000', '10.00'),
+(37, 42, 1, '1.000', '10.00'),
+(38, 42, 1, '1.000', '-10.00'),
+(39, 42, 1, '1.000', '10.00'),
+(40, 42, 1, '1.000', '10.00'),
+(41, 42, 1, '1.000', '10.00'),
+(42, 42, 1, '1.000', '10.00');
 
 --
 -- Acionadores `movimentos`
 --
+DELIMITER $$
+CREATE TRIGGER `discountBonus` BEFORE INSERT ON `movimentos`
+ FOR EACH ROW BEGIN
+
+	DECLARE bonusUsuario DECIMAL(10,2) default 0;
+	DECLARE totalDescBonus DECIMAL(10,2) default 0;
+
+	SET @bonusUsuario := (SELECT bonus FROM usuarios WHERE id = NEW.cliente LIMIT 1);
+
+	IF (NEW.total < @bonusUsuario) THEN
+	    SET @totalDescBonus := (@bonusUsuario - NEW.total);
+	    SET NEW.total := 0;
+	    UPDATE usuarios SET bonus = @totalDescBonus WHERE id = NEW.cliente;
+    ELSE
+	    SET @totalDescBonus := (NEW.total - @bonusUsuario);
+	    SET NEW.total := @totalDescBonus;
+	    UPDATE usuarios SET bonus = 0 WHERE id = NEW.cliente;
+	END IF;
+
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `setBonus` AFTER INSERT ON `movimentos`
  FOR EACH ROW BEGIN
@@ -175,7 +205,7 @@ CREATE TRIGGER `setBonus` AFTER INSERT ON `movimentos`
 	WHILE @loop_i < @recorrencia_bonus DO
 
 		SET @saldo_bonus := (SELECT bonus FROM usuarios WHERE id = @recebe_bonus LIMIT 1);
-		SET @bonus_acumulado := @saldo_bonus + (NEW.total * (@porcentagem_bonus / 100));
+		SET @bonus_acumulado := @saldo_bonus + (@totalDescBonus * (@porcentagem_bonus / 100));
 
 	   	UPDATE usuarios SET bonus = @bonus_acumulado WHERE id = @recebe_bonus;
 
@@ -224,46 +254,27 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `senha` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bonus` decimal(10,2) NOT NULL DEFAULT '0.00',
   `permissao` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `data_nasc`, `sexo`, `email`, `senha`, `bonus`, `permissao`) VALUES
-(1, 'Rafael Streit', '1989-12-31', 'masc', 'radasist@gmail.com', '9135d8523ad3da99d8a4eb83afac13d1', '3.00', 'a'),
-(2, 'Ariana', '1990-01-01', 'fem', 'ariana', 'ariana', '0.00', 'a'),
+(1, 'Rafael Streit', '1989-12-31', 'masc', 'radasist@gmail.com', '9135d8523ad3da99d8a4eb83afac13d1', '4.20', 'a'),
+(2, 'Ariana', '1990-01-01', 'fem', 'arianaestrelar@gmail.com', 'ariana', '20.00', 'a'),
 (3, 'Ariel', '1990-01-01', 'masc', 'arielfeiber@faccat.br', 'ariel', '0.00', 'a'),
 (4, 'Fabio', '1990-01-01', 'masc', 'fabio', 'fabio', '0.00', 'a'),
-(6, 'Olaf', '2012-01-01', 'masc', 'Olaf', 'olaf', '0.00', 'a'),
-(13, 'Bob', '2010-10-10', 'masc', 'bob', 'bob', '0.00', 'a'),
-(14, 'Nanny', '1981-07-12', 'fem', 'Nanny', 'nanny', '0.00', 'a'),
-(15, 'Francisco', '1987-01-01', 'masc', 'chico', 'chico', '0.00', 'a'),
-(16, 'Fulano', '0010-01-01', 'masc', 'fulano', 'fulano', '0.00', 'a'),
-(17, 'Fulano', '0010-01-01', 'masc', 'fulano', 'fulano', '0.00', 'a'),
-(19, 'Fulano', '0100-01-01', 'masc', 'fulano', 'fulano', '0.00', 'a'),
-(21, 'Ciclano', '0011-01-01', 'masc', 'Ciclano', 'ciclano', '0.00', 'a'),
-(22, 'Beltrano', '0001-01-01', 'masc', 'belt', 'belt', '0.00', 'a'),
-(23, 'Maria', '0011-01-01', 'fem', 'ma', 'ma', '0.00', 'a'),
-(24, 'Joana', '0001-01-01', 'fem', 'jo', 'jo', '0.00', 'a'),
-(25, 'Luana', '0001-01-01', 'fem', 'lu', 'lu', '0.00', 'a'),
-(26, 'Eli', '0001-01-01', 'fem', 'eli', 'eli', '0.00', 'a'),
-(27, 'Vanessa', '0001-01-01', 'fem', 'vanessa', 'va', '0.00', 'a'),
-(28, 'Mili', '0001-01-01', 'fem', 'Mili', 'mi', '0.00', 'a'),
-(29, 'Ivana', '0001-01-01', 'fem', 'ivana', 'iv', '0.00', 'a'),
-(30, 'Marlene', '0101-01-01', 'fem', 'marlene', 'ma', '0.00', 'a'),
-(31, 'João', '1910-01-01', 'masc', 'joao', 'joao', '0.00', 'a'),
-(32, 'Nelci', '1972-12-12', 'fem', 'nelci@ggmail.com', '202cb962ac59075b964b07152d234b70', '0.00', 'a'),
-(33, 'Juliana', '0001-01-01', 'fem', 'ju@j.com', '21', '0.00', 'a'),
+(32, 'Nelci', '1972-12-12', 'fem', 'nelci@gmail.com', '202cb962ac59075b964b07152d234b70', '0.00', 'a'),
 (34, 'Planta do vaso de Planta', '2015-06-04', 'fem', 'planta@planta.com', '123', '0.00', 'a'),
-(35, 'TS', '0001-01-01', 'fem', 't@s.com', 'caf1a3dfb505ffed0d024130f58c5cfa', '0.00', 'f'),
-(36, 'teste', '0011-11-11', 'masc', '11@11.11', '6512bd43d9caa6e02c990b0a82652dca', '0.00', 'f'),
-(39, 'Barba', '0002-02-02', 'fem', 'barbarasqtreit@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '0.00', 'a'),
-(41, 'Barbara', '1986-06-25', 'fem', 'barbarastreit@gmail.com', '4d6c4d6b5b6c7fd2c43727ce32a56f4e', '4.50', 'a'),
-(42, 'Terezinha', '1965-01-01', 'fem', 'feliciamegue@gmail.com', 'eb4a4a36e4d53916f9979759c3d3b822', '6.00', 'a'),
+(41, 'Barbara', '1986-06-25', 'fem', 'barbarastreit@gmail.com', '4d6c4d6b5b6c7fd2c43727ce32a56f4e', '27.30', 'a'),
+(42, 'Terezinha', '1965-01-01', 'fem', 'feliciamegue@gmail.com', 'eb4a4a36e4d53916f9979759c3d3b822', '0.00', 'a'),
 (43, 'Gerson', '1955-06-22', 'masc', 'gersonstreit@gmail.com', 'd828a5b9b09b334ce76bf241ca16c4eb', '7.50', 'a'),
 (44, 'Megue', '2002-04-22', 'fem', 'megue@gmail.com', '548c0e2986f152f5ad7203aae24be45d', '7.50', 'a'),
-(45, 'Isis', '2010-01-01', 'fem', 'isis@gmail.com', '529419940a585fb2a83765b2ca5cc091', '0.00', 'a');
+(45, 'Isis', '2010-01-01', 'fem', 'isis@gmail.com', '529419940a585fb2a83765b2ca5cc091', '0.00', 'a'),
+(46, 'Frentista', '0001-01-01', 'masc', 'frentista@gmail.com', '50cead2e182a42320a771beba57e9684', '0.00', 'f'),
+(47, 'Cliente', '0001-01-01', 'masc', 'cliente@gmail.com', '4983a0ab83ed86e0e7213c8783940193', '0.00', 'c'),
+(48, 'Mariana', '0001-01-01', 'fem', 'mariana@gmail.com', '202cb962ac59075b964b07152d234b70', '0.00', 'a');
 
 --
 -- Acionadores `usuarios`
@@ -334,12 +345,12 @@ ALTER TABLE `grupoestabelecimentos`
 -- AUTO_INCREMENT for table `indicacao`
 --
 ALTER TABLE `indicacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `movimentos`
 --
 ALTER TABLE `movimentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
 --
 -- AUTO_INCREMENT for table `produtos`
 --
@@ -349,7 +360,7 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
 --
 -- Constraints for dumped tables
 --
